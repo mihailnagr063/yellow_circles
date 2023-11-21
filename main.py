@@ -1,14 +1,14 @@
-import random
+from random import randrange as rand
 import sys
-from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QApplication, QMainWindow
+from ui import Ui_MainWindow
 
 
-class YellowCircles(QMainWindow):
+class YellowCircles(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
+        self.setupUi(self)
         self.drawBtn.clicked.connect(self.draw)
         self.allow_paint = False
 
@@ -20,11 +20,11 @@ class YellowCircles(QMainWindow):
     def paintEvent(self, event):
         if not self.allow_paint:
             return
-        rad = random.randrange(1, 100)
-        pos = (random.randrange(0, self.width() - rad), random.randrange(0, self.height() - rad))
+        rad = rand(1, 100)
+        pos = (rand(0, self.width() - rad), rand(0, self.height() - rad))
         painter = QPainter()
         painter.begin(self)
-        painter.setBrush(QColor(255, 255, 0))
+        painter.setBrush(QColor(rand(0, 256), rand(0, 256), rand(0, 256)))
         painter.drawEllipse(pos[0], pos[1], rad, rad)
         painter.end()
 
